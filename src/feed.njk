@@ -2,23 +2,31 @@
 permalink: /feed.xml
 eleventyExcludeFromCollections: true
 ---
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <channel>
   <title>{{ site.title }}</title>
   <link>{{ site.url }}/</link>
   <description>{{ site.description }}</description>
   <language>en-us</language>
+  <lastBuildDate>{{ (collections.posts[0].date if collections.posts.length else "2026-10-14") | rfcDate }}</lastBuildDate>
   <atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml"/>
-  {% for post in collections.posts | limit(30) %}
+  {%- for post in collections.posts | limit(30) %}
+  {%- set img = (post.data.image | absUrl(site.url)) if post.data.image else "" %}
   <item>
     <title>{{ post.data.title }}</title>
     <link>{{ post.url | absUrl(site.url) }}</link>
     <guid isPermaLink="true">{{ post.url | absUrl(site.url) }}</guid>
     <pubDate>{{ post.date | rfcDate }}</pubDate>
-    <description>{{ post.data.description }}</description>
-    {% if post.data.image %}<enclosure url="{{ post.data.image | absUrl(site.url) }}" type="image/png" length="0"/>{% endif %}
+    <dc:creator>AXDAVID AI</dc:creator>
+    <description><![CDATA[{% if img %}<div><img src="{{ img }}" style="width:100%" /><div>{{ post.data.description }}</div></div>{% else %}{{ post.data.description }}{% endif %}]]></description>
+    <content:encoded><![CDATA[{% if img %}<img src="{{ img }}" />{% endif %}{{ post.templateContent | safe }}]]></content:encoded>
+    {%- if img %}
+    <enclosure url="{{ img }}" type="image/jpeg" length="0"/>
+    <media:content url="{{ img }}" medium="image" type="image/jpeg"/>
+    <media:thumbnail url="{{ img }}"/>
+    {%- endif %}
   </item>
-  {% endfor %}
+  {%- endfor %}
 </channel>
 </rss>
