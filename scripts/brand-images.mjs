@@ -29,7 +29,7 @@ for (const f of files) {
   const out = path.join(OUT, f.replace(/\.(png|jpe?g|webp)$/i, ".jpg"));
   try { await access(out); continue; } catch {}
   try {
-    if (!sharp) throw new Error("no sharp");
+    if (!sharp || process.env.FORCE_JIMP) throw new Error("no sharp");
     await sharp(src)
       .resize(W, H, { fit: "cover", position: "attention" })
       .composite([{ input: badge, left: W - badgeW - margin, top: H - badgeH - margin }])
@@ -37,7 +37,21 @@ for (const f of files) {
       .toFile(out);
     console.log("branded", out);
   } catch (err) {
-    console.warn("fallback copy for", f, err.message);
-    await copyFile(src, out);
+    console.warn("sharp failed for", f, err.message, "- trying jimp");
+    try {
+      const { Jimp } = await import("jimp");
+      const img = await Jimp.read(src);
+      img.cover({ w: W, h: H });
+      const b = await Jimp.read(BADGE);
+      const bw = Math.round(W * 0.15);
+      b.resize({ w: bw });
+      const m = Math.round(W * 0.025);
+      img.composite(b, W - bw - m, H - b.bitmap.height - m);
+      await img.write(out, { quality: 84 });
+      console.log("branded (jimp)", out);
+    } catch (err2) {
+      console.warn("fallback copy for", f, err2.message);
+      await copyFile(src, out);
+    }
   }
 }
