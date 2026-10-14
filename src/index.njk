@@ -1,0 +1,24 @@
+---
+layout: base.njk
+permalink: /
+---
+<section class="hero">
+  <h1>AI news in <mark>60 seconds</mark>.</h1>
+  <p>{{ site.tagline }} What happened, why it matters, what to do.</p>
+</section>
+{% if collections.posts.length %}
+<section class="grid">
+{% for post in collections.posts %}
+  <a class="card" href="{{ post.url }}">
+    {% if post.data.image %}<img src="{{ post.data.image }}" alt="{{ post.data.imageAlt or post.data.title }}" loading="lazy" width="1536" height="864">{% else %}<div class="ph"></div>{% endif %}
+    <div class="body">
+      <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+      <h2>{{ post.data.title }}</h2>
+      <p>{{ post.data.description }}</p>
+    </div>
+  </a>
+{% endfor %}
+</section>
+{% else %}
+<p class="empty">The first brief is on its way.</p>
+{% endif %}

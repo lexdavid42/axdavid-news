@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% set pageTitle = (title + " | " + site.title) if title else (site.title + " — " + site.tagline) %}
+{% set pageDesc = description or site.description %}
+{% set pageImage = (image | absUrl(site.url)) if image else ("/assets/icon-512.png" | absUrl(site.url)) %}
+{% set pageUrl = page.url | absUrl(site.url) %}
+<title>{{ pageTitle }}</title>
+<meta name="description" content="{{ pageDesc }}">
+<link rel="canonical" href="{{ pageUrl }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:type" content="{{ 'article' if layout == 'post.njk' else 'website' }}">
+<meta property="og:title" content="{{ title or site.title }}">
+<meta property="og:description" content="{{ pageDesc }}">
+<meta property="og:url" content="{{ pageUrl }}">
+<meta property="og:image" content="{{ pageImage }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title or site.title }}">
+<meta name="twitter:description" content="{{ pageDesc }}">
+<meta name="twitter:image" content="{{ pageImage }}">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="/feed.xml">
+<style>
+:root{--y:#FFC832;--k:#111014;--ink:#1d1c21;--muted:#5d5b66;--line:#e7e4dc;--bg:#faf8f2;--card:#fff}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.top{background:var(--k);border-bottom:4px solid var(--y)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:68px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
+.brand img{height:40px;width:auto;border-radius:8px;display:block}
+.brand span{font-weight:800;letter-spacing:.02em;font-size:15px;text-transform:uppercase}
+.brand span b{color:var(--y)}
+nav.top a{color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border:1.5px solid var(--y);border-radius:999px;white-space:nowrap}
+nav.top a:hover{background:var(--y);color:var(--k)}
+.hero{padding:40px 0 8px}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 8px;letter-spacing:-.02em}
+.hero h1 mark{background:var(--y);padding:0 .15em;border-radius:4px}
+.hero p{margin:0;color:var(--muted);font-size:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;padding:28px 0 48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(17,16,20,.08)}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--k)}
+.card .ph{aspect-ratio:16/9;background:var(--k)}
+.card .body{padding:16px 18px 20px}
+.card time{font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.card h2{font-size:20px;line-height:1.25;margin:6px 0 8px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+article.post{max-width:720px;margin:0 auto;padding:32px 0 56px}
+article.post .meta{font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+article.post h1{font-size:clamp(28px,5vw,40px);line-height:1.15;margin:8px 0 20px;letter-spacing:-.02em}
+article.post .cover{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;display:block;margin-bottom:24px;background:var(--k)}
+article.post .content p{margin:0 0 16px}
+article.post .content ul{padding-left:22px;margin:0 0 16px}
+article.post .content li{margin-bottom:6px}
+article.post .content strong{background:linear-gradient(transparent 62%,var(--y) 62%)}
+article.post .content a{color:var(--k);text-underline-offset:3px}
+.cta{margin-top:32px;background:var(--k);color:#fff;border-radius:14px;padding:22px 22px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.cta p{margin:0;font-weight:600}
+.cta a{background:var(--y);color:var(--k);text-decoration:none;font-weight:800;padding:10px 18px;border-radius:999px;white-space:nowrap}
+.back{display:inline-block;margin-top:20px;font-weight:600;color:var(--muted);text-decoration:none}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+footer a{text-decoration:none;font-weight:600}
+.empty{padding:48px 0;color:var(--muted)}
+@media (max-width:480px){.brand span{display:none}body{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/assets/logo-badge.png" alt="AXDAVID AI" width="66" height="40"><span>AI <b>News</b></span></a>
+    <nav class="top"><a href="{{ site.mainSite }}">axdavid.com</a></nav>
+  </div>
+</header>
+<main class="wrap">
+{{ content | safe }}
+</main>
+<footer>
+  <div class="wrap">
+    <span>&copy; AXDAVID Artificial Intelligence LLC</span>
+    <span><a href="{{ site.mainSite }}">axdavid.com</a> &nbsp;·&nbsp; <a href="{{ site.facebook }}">Facebook</a> &nbsp;·&nbsp; <a href="{{ site.linkedin }}">LinkedIn</a> &nbsp;·&nbsp; <a href="/feed.xml">RSS</a></span>
+  </div>
+</footer>
+</body>
+</html>

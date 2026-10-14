@@ -1,0 +1,16 @@
+---
+layout: base.njk
+---
+<article class="post">
+  <div class="meta"><time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time> · 60-second brief</div>
+  <h1>{{ title }}</h1>
+  {% if image %}<img class="cover" src="{{ image }}" alt="{{ imageAlt or title }}" width="1536" height="864">{% endif %}
+  <div class="content">
+{{ content | safe }}
+  </div>
+  <div class="cta">
+    <p>Use AI to work faster and earn more.</p>
+    <a href="{{ site.mainSite }}">Explore AXDAVID AI</a>
+  </div>
+  <a class="back" href="/">&larr; All AI briefs</a>
+</article>
