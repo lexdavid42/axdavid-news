@@ -3,10 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "eleventy",
+    "build": "node scripts/brand-images.mjs && eleventy",
     "dev": "eleventy --serve"
   },
   "devDependencies": {
-    "@11ty/eleventy": "3.1.2"
+    "@11ty/eleventy": "3.1.2",
+    "sharp": "^0.34.5"
   }
 }
