@@ -8,6 +8,8 @@ layout: base.njk
   <div class="content">
 {{ content | safe }}
   </div>
+  {% set subId = "post" %}{% set subHeading = "Want the next brief in your inbox?" %}{% set subText = "Free. One tap to unsubscribe anytime." %}
+  {% include "subscribe.njk" %}
   <div class="cta">
     <p>Use AI to work faster and earn more.</p>
     <a href="{{ site.mainSite }}">Explore AXDAVID AI</a>

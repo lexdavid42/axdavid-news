@@ -6,6 +6,8 @@ permalink: /
   <h1>AI news in <mark>60 seconds</mark>.</h1>
   <p>{{ site.tagline }} What happened, why it matters, what to do.</p>
 </section>
+{% set subId = "home" %}{% set subHeading = "Get the AI brief in your inbox." %}{% set subText = "Practical AI news for entrepreneurs and freelancers. Free. Unsubscribe anytime." %}
+{% include "subscribe.njk" %}
 {% if collections.posts.length %}
 <section class="grid">
 {% for post in collections.posts %}

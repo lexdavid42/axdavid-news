@@ -1,0 +1,9 @@
+<section class="sub" id="subscribe" aria-labelledby="sub-title-{{ subId or 'main' }}">
+  <h2 id="sub-title-{{ subId or 'main' }}">{{ subHeading or "Get the AI brief in your inbox." }}</h2>
+  <p>{{ subText or "Practical AI news for entrepreneurs and freelancers. Free. Unsubscribe anytime." }}</p>
+  <form action="https://app.kit.com/forms/{{ site.kitFormId }}/subscriptions" method="post" data-sv-form="{{ site.kitFormId }}" class="sub-form">
+    <label class="sr" for="sub-email-{{ subId or 'main' }}">Email address</label>
+    <input id="sub-email-{{ subId or 'main' }}" type="email" name="email_address" placeholder="you@company.com" autocomplete="email" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
